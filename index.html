@@ -1,17 +1,949 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>متجر الدراجات الهوائية | أفضل الدراجات بأسعار منافسة</title>
-    <meta name="description" content="متجر متخصص في بيع الدراجات الهوائية عالية الجودة بأسعار منافسة. توصيل لجميع أنحاء المغرب." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر عتمان - منتج حصري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== المتغيرات والإعدادات الأساسية ==================== */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ==================== الهيدر ==================== */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* ==================== القسم الرئيسي للمنتج ==================== */
+        .hero {
+            background: linear-gradient(180deg, #e0e7ff 0%, var(--bg-light) 100%);
+            padding: 40px 20px 60px;
+        }
+
+        .hero-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .product-image-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .product-subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .price-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .current-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+        }
+
+        .old-price {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* ==================== قسم التفاصيل ==================== */
+        .details-section {
+            padding: 60px 20px;
+            background: var(--bg-white);
+        }
+
+        .details-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        /* ألبوم الصور */
+        .gallery {
+            margin-bottom: 40px;
+        }
+
+        .gallery-main {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            margin-bottom: 15px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .gallery-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* وصف المنتج */
+        .product-description {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 30px;
+        }
+
+        .product-description h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .product-description p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.9;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* ==================== استمارة الطلب ==================== */
+        .order-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, var(--bg-light) 0%, #e0e7ff 100%);
+        }
+
+        .order-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .order-form {
+            background: var(--bg-white);
+            padding: 35px 25px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--bg-white);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .form-note svg {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        /* ==================== زر الواتساب العائم ==================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==================== الفوتر ==================== */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ==================== رسائل النجاح والخطأ ==================== */
+        .message {
+            padding: 15px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .message.show {
+            display: flex;
+        }
+
+        /* ==================== التحميل ==================== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ==================== التوافق مع الهواتف ==================== */
+        @media (max-width: 768px) {
+            .product-title {
+                font-size: 1.5rem;
+            }
+
+            .current-price {
+                font-size: 1.8rem;
+            }
+
+            .gallery-main {
+                height: 250px;
+            }
+
+            .gallery-thumb {
+                width: 70px;
+                height: 70px;
+            }
+
+            .order-form {
+                padding: 25px 20px;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                left: 20px;
+                width: 55px;
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero {
+                padding: 30px 15px 50px;
+            }
+
+            .product-title {
+                font-size: 1.3rem;
+            }
+
+            .price-container {
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .product-description {
+                padding: 20px;
+            }
+        }
+
+        /* ==================== تأثيرات السكرول ==================== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== الهيدر ==================== -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">متجر <span>عتمان</span></a>
+        </div>
+    </header>
+
+    <!-- ==================== القسم الرئيسي للمنتج ==================== -->
+    <section class="hero">
+        <div class="hero-container">
+            <span class="product-badge">🔥 عرض محدود</span>
+            
+            <div class="product-image-container">
+                <!-- ضع هنا رابط صورة المنتج الرئيسية -->
+                <img src="https://via.placeholder.com/400x400/e0e7ff/2563eb?text=صورة+المنتج" alt="صورة المنتج" class="product-image" id="mainProductImage">
+            </div>
+
+            <!-- اسم المنتج - قم بتغييره حسب منتجك -->
+            <h1 class="product-title" id="productName">اسم المنتج الرائع</h1>
+            <p class="product-subtitle">وصف قصير ومختصر للمنتج يجذب انتباه العميل</p>
+
+            <div class="price-container">
+                <!-- السعر الحالي والقديم - قم بتغييرهما -->
+                <span class="current-price" id="productPrice">299 درهم</span>
+                <span class="old-price">499 درهم</span>
+                <span class="discount-badge">خصم 40%</span>
+            </div>
+
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToOrder()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    اطلب الآن
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToDetails()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                    عرض التفاصيل
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== قسم التفاصيل ==================== -->
+    <section class="details-section" id="detailsSection">
+        <div class="details-container">
+            <h2 class="section-title scroll-reveal">تفاصيل <span>المنتج</span></h2>
+
+            <!-- ألبوم الصور -->
+            <div class="gallery scroll-reveal">
+                <!-- الصورة الرئيسية في الألبوم -->
+                <img src="https://via.placeholder.com/800x400/e0e7ff/2563eb?text=صورة+1" alt="صورة المنتج" class="gallery-main" id="galleryMain">
+                
+                <!-- الصور المصغرة - أضف صور منتجك هنا -->
+                <div class="gallery-thumbs">
+                    <img src="https://via.placeholder.com/100x100/e0e7ff/2563eb?text=1" alt="صورة 1" class="gallery-thumb active" onclick="changeGalleryImage(this, 'https://via.placeholder.com/800x400/e0e7ff/2563eb?text=صورة+1')">
+                    <img src="https://via.placeholder.com/100x100/d1fae5/10b981?text=2" alt="صورة 2" class="gallery-thumb" onclick="changeGalleryImage(this, 'https://via.placeholder.com/800x400/d1fae5/10b981?text=صورة+2')">
+                    <img src="https://via.placeholder.com/100x100/fef3c7/f59e0b?text=3" alt="صورة 3" class="gallery-thumb" onclick="changeGalleryImage(this, 'https://via.placeholder.com/800x400/fef3c7/f59e0b?text=صورة+3')">
+                    <img src="https://via.placeholder.com/100x100/fee2e2/dc2626?text=4" alt="صورة 4" class="gallery-thumb" onclick="changeGalleryImage(this, 'https://via.placeholder.com/800x400/fee2e2/dc2626?text=صورة+4')">
+                </div>
+            </div>
+
+            <!-- وصف المنتج -->
+            <div class="product-description scroll-reveal">
+                <h3>لماذا هذا المنتج مميز؟</h3>
+                <!-- قم بتغيير الوصف التسويقي حسب منتجك -->
+                <p>
+                    هذا المنتج الرائع صُمم خصيصاً لتلبية احتياجاتك اليومية بأعلى جودة وأفضل سعر. 
+                    نحن نضمن لك تجربة استخدام مميزة ورضا تام عن المنتج.
+                </p>
+                <p>
+                    تم اختيار أجود المواد في التصنيع لضمان المتانة والاستدامة. 
+                    المنتج يأتي مع ضمان الجودة وخدمة ما بعد البيع المتميزة.
+                </p>
+
+                <!-- مميزات المنتج -->
+                <ul class="features-list">
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>جودة عالية ومواد ممتازة</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>توصيل سريع لجميع المدن</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>الدفع عند الاستلام</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>ضمان استرجاع خلال 7 أيام</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>دعم فني متواصل 24/7</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== استمارة الطلب ==================== -->
+    <section class="order-section" id="orderSection">
+        <div class="order-container">
+            <form class="order-form" id="orderForm">
+                <div class="form-header">
+                    <h2>🛒 أكمل طلبك الآن</h2>
+                    <p>املأ البيانات التالية وسنتواصل معك لتأكيد الطلب</p>
+                </div>
+
+                <!-- رسائل النجاح والخطأ -->
+                <div class="message success" id="successMessage">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <span>تم إرسال طلبك بنجاح! سنتواصل معك قريباً</span>
+                </div>
+
+                <div class="message error" id="errorMessage">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                    <span id="errorText">حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">الاسم الكامل *</label>
+                    <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="06XXXXXXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">المدينة *</label>
+                    <input type="text" id="city" name="city" placeholder="أدخل اسم مدينتك" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان الكامل *</label>
+                    <textarea id="address" name="address" rows="3" placeholder="أدخل عنوانك بالتفصيل (الحي، الشارع، رقم المنزل...)" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span id="btnText">تأكيد الطلب</span>
+                    <span class="loading" id="btnLoading" style="display: none;"></span>
+                </button>
+
+                <p class="form-note">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                    </svg>
+                    بياناتك آمنة ومحمية 100%
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== الفوتر ==================== -->
+    <footer class="footer">
+        <p>© 2024 متجر عتمان - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- ==================== زر الواتساب العائم ==================== -->
+    <a href="https://wa.me/212721203554" target="_blank" class="whatsapp-float" aria-label="تواصل معنا عبر واتساب">
+        <span class="whatsapp-tooltip">تواصل معنا</span>
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // ==================== إعدادات Supabase ====================
+        // ضع هنا رابط الـ API URL الخاص بـ Supabase
+        const SUPABASE_URL = 'https://pjraimqbdrrzmnybvvkk.supabase.co';
+        
+        // ضع هنا مفتاح الـ Anon Public API Key الخاص بـ Supabase
+        const SUPABASE_ANON_KEY = 'sb_publishable_p76veXpdk-BNBbJ4-EVKVw_EwcM4DTs';
+        
+        // اسم الجدول في Supabase
+        const TABLE_NAME = 'orders';
+
+        // رابط Google Sheet (اختياري - للنسخ الاحتياطي)
+        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxOxdOd2B50cVIbScFtYe2vdgJixOn08jlWtZStpsQSFjEaLQ0ixbu-YDSHA06uI7cb/exec';
+
+        // ==================== اسم المنتج (يُرسل مع الطلب) ====================
+        // قم بتغيير اسم المنتج هنا
+        const PRODUCT_NAME = 'اسم المنتج الرائع';
+
+        // ==================== وظائف التنقل ====================
+        
+        // التمرير إلى قسم الطلب
+        function scrollToOrder() {
+            document.getElementById('orderSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // التمرير إلى قسم التفاصيل
+        function scrollToDetails() {
+            document.getElementById('detailsSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // ==================== ألبوم الصور ====================
+        
+        // تغيير الصورة الرئيسية في الألبوم
+        function changeGalleryImage(thumb, imageUrl) {
+            // تحديث الصورة الرئيسية
+            document.getElementById('galleryMain').src = imageUrl;
+            
+            // إزالة الكلاس النشط من جميع الصور المصغرة
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            
+            // إضافة الكلاس النشط للصورة المحددة
+            thumb.classList.add('active');
+        }
+
+        // ==================== إرسال الطلب ====================
+        
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // الحصول على عناصر الفورم
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // إخفاء الرسائل السابقة
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+            
+            // تعطيل الزر وإظهار التحميل
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            
+            // جمع بيانات الفورم
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                product: PRODUCT_NAME,
+                created_at: new Date().toISOString()
+            };
+            
+            try {
+                // إرسال البيانات إلى Supabase
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('فشل في إرسال الطلب إلى Supabase');
+                }
+                
+                // إرسال نسخة احتياطية إلى Google Sheet (اختياري)
+                try {
+                    await fetch(GOOGLE_SHEET_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                } catch (sheetError) {
+                    // تجاهل أخطاء Google Sheet - الطلب الرئيسي نجح
+                    console.log('Google Sheet backup skipped');
+                }
+                
+                // إظهار رسالة النجاح
+                successMessage.classList.add('show');
+                
+                // إعادة تعيين الفورم
+                document.getElementById('orderForm').reset();
+                
+                // التمرير إلى رسالة النجاح
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // إظهار رسالة الخطأ
+                document.getElementById('errorText').textContent = 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل معنا عبر الواتساب';
+                errorMessage.classList.add('show');
+                
+                // التمرير إلى رسالة الخطأ
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } finally {
+                // إعادة تفعيل الزر
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+            }
+        });
+
+        // ==================== تأثيرات السكرول ====================
+        
+        // كشف العناصر عند التمرير
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('revealed');
+                }
+            });
+        }
+
+        // تشغيل الكشف عند التحميل والتمرير
+        window.addEventListener('load', revealOnScroll);
+        window.addEventListener('scroll', revealOnScroll);
+
+        // ==================== التحقق من صحة رقم الهاتف ====================
+        
+        document.getElementById('phone').addEventListener('input', function(e) {
+            // إزالة أي حروف غير رقمية
+            this.value = this.value.replace(/[^0-9+]/g, '');
+        });
+    </script>
+</body>
 </html>
